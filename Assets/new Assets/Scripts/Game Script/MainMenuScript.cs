@@ -102,7 +102,6 @@ public class MainMenuScript : MonoBehaviour {
     {
         yield return new WaitForSeconds(2.0f);
         SceneManager.LoadScene("Truck Selection");
-        AdsHandler.Instance.LoadAd();
         StopCoroutine("wait");
     }
 	public void SendFeedbackMail(){

@@ -51,7 +51,6 @@ public class PauseMenuScript : MonoBehaviour {
     {
         yield return new WaitForSeconds(2.0f);
         SceneManager.LoadScene("Level" + PlayerPrefs.GetInt("Level"));
-        AdsHandler.Instance.LoadAd();
         StopCoroutine("wait");
     }
 }
