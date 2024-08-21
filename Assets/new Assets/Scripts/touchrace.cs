@@ -75,44 +75,5 @@ public class touchrace : MonoBehaviour
             driveScript.releaseBreak();
         }
         
-        for (int i = 0; i < Input.touchCount; i++)
-        {
-            touch = Input.GetTouch(i);
-            myRay = Camra.ScreenPointToRay(touch.position);
-            if (Physics.Raycast(myRay, out hit))
-            {
-                if (Input.GetTouch(i).phase == TouchPhase.Began)
-                {
-                    if (hit.collider.gameObject == this.gameObject)
-                    {
-                        gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.1f);
-                        driveScript = Vehicle.GetComponent<DriveScript>();
-                        if (driveScript.engineStart == 0.0f)
-                        {
-                            Camra.gameObject.GetComponent<HudCameraScript>().startButtonHelp.SetActive(true);
-                        }
-                        else
-                        {
-                            Camra.gameObject.GetComponent<HudCameraScript>().startButtonHelp.SetActive(false);
-                        }
-
-                        driveScript.accelerator = Camra.gameObject.GetComponent<HudCameraScript>().direction;
-                        driveScript.raceOn = true;
-                        //driveScript.accelerator=1f;
-                    }
-                }
-                else if ((Input.GetTouch(i).phase == TouchPhase.Canceled) ||
-                         (Input.GetTouch(i).phase == TouchPhase.Ended))
-                {
-                    if (hit.collider.gameObject == this.gameObject)
-                    {
-                        gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-                        driveScript.accelerator = 0f;
-                        driveScript.raceOn = false;
-                        driveScript.releaseBreak();
-                    }
-                }
-            }
-        }
     }
 }

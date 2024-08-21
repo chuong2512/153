@@ -303,82 +303,98 @@ public class driveAuto : MonoBehaviour {
 			//StopCoroutine ("RevSound");
 			//revSound.SetActive(false);
 		}
-		
-		//if(Platform == (int) RuntimePlatform.WindowsEditor){
-	//power=Input.GetAxis("Vertical") * enginePower;
-		power=1 * enginePower;
-			steer=Input.GetAxis("Horizontal") * maxSteer;
-			if(Input.GetKey("space")){
+
+		if (Platform == (int)RuntimePlatform.WindowsEditor)
+		{
+			power = Input.GetAxis("Vertical") * enginePower * 100;
+			power = 1 * enginePower;
+			steer = Input.GetAxis("Horizontal") * maxSteer;
+			if (Input.GetKey("space"))
+			{
 				applyBreak();
-			}else{
+			}
+			else
+			{
 				releaseBreak();
 			}
+
 			//brake=Input.GetKey("space") ? rigidbody.mass * 0.1f: 0.0f;
-			if(Input.GetAxis("Vertical") == -1){
+			if (Input.GetAxis("Vertical") == -1)
+			{
 				//reverseLights.SetActive(true);
 				//revSound.SetActive(true);
 				//StartCoroutine("RevSound");
 				//audio.PlayOneShot (revSound);
-			}else{
+			}
+			else
+			{
 				//reverseLights.SetActive(false);
 				//revSound.SetActive(false);
 				//StopCoroutine ("RevSound");
 			}
-		//}
-		
-		GetCollider(0).steerAngle = steer;
-		GetCollider(1).steerAngle = steer;
-		
-		
-		getWheel(8).transform.localRotation = Quaternion.Euler (0,steer,0); 
-		getWheel(9).transform.localRotation = Quaternion.Euler (0,steer,0);
-		
-		
-		
-		if(brake > 0.0){
-			//			if (rigidbody.velocity.magnitude >1){
-			//				PlayerPrefs.SetInt("friction",1);
-			//			}
-			//			else{
-			//				PlayerPrefs.SetInt("friction",2);
-			//			}
-			
-			GetCollider(0).brakeTorque = brake;
-			GetCollider(1).brakeTorque = brake;
-			GetCollider(2).brakeTorque = brake;
-			GetCollider(3).brakeTorque = brake;
-			GetCollider(2).motorTorque = 0.0f;
-			GetCollider(3).motorTorque = 0.0f;
-			
-		} else {
-			//PlayerPrefs.SetInt("friction",3);
-			GetCollider(0).brakeTorque = 0.0f;
-			GetCollider(1).brakeTorque = 0.0f;
-			GetCollider(2).brakeTorque = 0.0f;
-			GetCollider(3).brakeTorque = 0.0f;
-			GetCollider(2).motorTorque = power;
-			GetCollider(3).motorTorque = power;
-			
+			//}
+
+			GetCollider(0).steerAngle = steer;
+			GetCollider(1).steerAngle = steer;
+
+
+			getWheel(8).transform.localRotation = Quaternion.Euler(0, steer, 0);
+			getWheel(9).transform.localRotation = Quaternion.Euler(0, steer, 0);
+
+
+
+			if (brake > 0.0)
+			{
+				//			if (rigidbody.velocity.magnitude >1){
+				//				PlayerPrefs.SetInt("friction",1);
+				//			}
+				//			else{
+				//				PlayerPrefs.SetInt("friction",2);
+				//			}
+
+				GetCollider(0).brakeTorque = brake;
+				GetCollider(1).brakeTorque = brake;
+				GetCollider(2).brakeTorque = brake;
+				GetCollider(3).brakeTorque = brake;
+				GetCollider(2).motorTorque = 0.0f;
+				GetCollider(3).motorTorque = 0.0f;
+
+			}
+			else
+			{
+				//PlayerPrefs.SetInt("friction",3);
+				GetCollider(0).brakeTorque = 0.0f;
+				GetCollider(1).brakeTorque = 0.0f;
+				GetCollider(2).brakeTorque = 0.0f;
+				GetCollider(3).brakeTorque = 0.0f;
+				GetCollider(2).motorTorque = power;
+				GetCollider(3).motorTorque = power;
+
+			}
+
+			//////////////////////////////////////////////////////////////////////////
+			if (busSpeed >= topSpeed)
+			{
+				GetCollider(0).brakeTorque = brake;
+				GetCollider(1).brakeTorque = brake;
+				GetCollider(2).brakeTorque = brake;
+				GetCollider(3).brakeTorque = brake;
+				GetCollider(2).motorTorque = 0.0f;
+				GetCollider(3).motorTorque = 0.0f;
+
+			}
+			else
+			{
+				GetCollider(0).brakeTorque = 0.0f;
+				GetCollider(1).brakeTorque = 0.0f;
+				GetCollider(2).brakeTorque = 0.0f;
+				GetCollider(3).brakeTorque = 0.0f;
+				GetCollider(2).motorTorque = power;
+				GetCollider(3).motorTorque = power;
+
+			}
 		}
-		//////////////////////////////////////////////////////////////////////////
-		if(busSpeed>= topSpeed){
-			GetCollider(0).brakeTorque = brake;
-			GetCollider(1).brakeTorque = brake;
-			GetCollider(2).brakeTorque = brake;
-			GetCollider(3).brakeTorque = brake;
-			GetCollider(2).motorTorque = 0.0f;
-			GetCollider(3).motorTorque = 0.0f;
-			
-		} else {
-			GetCollider(0).brakeTorque = 0.0f;
-			GetCollider(1).brakeTorque = 0.0f;
-			GetCollider(2).brakeTorque = 0.0f;
-			GetCollider(3).brakeTorque = 0.0f;
-			GetCollider(2).motorTorque = power;
-			GetCollider(3).motorTorque = power;
-			
-		}
-		
+
 		//		motionfactor = busSpeed / topSpeed;
 		//		rotationAngle = Mathf.Lerp (0,180, motionfactor);
 		//Speedometer.transform.RotateAround (Vector3.zero, Vector3.up, motionfactor * Time.deltaTime);

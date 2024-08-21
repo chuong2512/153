@@ -243,8 +243,8 @@ public class DriveScript : MonoBehaviour {
 		}
 
 		if(Platform == (int) RuntimePlatform.WindowsEditor || Platform == (int) RuntimePlatform.OSXEditor){
-			power=Input.GetAxis("Vertical") * enginePower;
-			steer=Input.GetAxis("Horizontal") * maxSteer;
+			power=Input.GetAxis("Vertical") * enginePower * 100;
+			steer=Input.GetAxis("Horizontal") * maxSteer * 2;
 			if(Input.GetKey("space")){
 				applyBreak();
 			}else{
